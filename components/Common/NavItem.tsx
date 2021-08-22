@@ -16,10 +16,8 @@ const Anchor = styled('a')`
   color: white;
 `;
 
-const NavItem = ({ className, href, as, children }: CustomLinkProps) => (
+export const NavItem = ({ className, href, as, children }: CustomLinkProps) => (
   <Link href={href} as={as} passHref>
     <Anchor className={className || ''}>{children}</Anchor>
   </Link>
 );
-
-export default NavItem;

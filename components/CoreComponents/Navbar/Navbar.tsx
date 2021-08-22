@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
-import NavItem from '../../Common/NavItem';
+import { NavItem } from '../../Common/NavItem';
 import { AiFillHome, AiFillPropertySafety } from 'react-icons/ai';
 import { GiAmpleDress } from 'react-icons/gi';
 import { FaShoppingCart } from 'react-icons/fa';
@@ -15,7 +15,7 @@ const Navbar: React.FC = () => {
       <DesktopNavContainer>
         <NavContent>
           <NavLogoContainer>
-            <NavLogo src={window.location.origin + '/logo.svg'} />
+            <NavImage src={window.location.origin + '/logo.svg'} />
           </NavLogoContainer>
           <DesktopNav>
             <NavItem href='/' as='/'>
@@ -145,7 +145,7 @@ const DesktopNav = styled.nav`
 const NavLogoContainer = styled.div`
   width: 200px;
 `;
-const NavLogo = styled.img`
+export const NavImage = styled.img`
   width: 100%;
 `;
 const IconContainer = styled.div`
