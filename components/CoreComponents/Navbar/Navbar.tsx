@@ -1,29 +1,71 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import NavItem from '../../Common/NavItem';
-
+import { AiFillHome, AiFillPropertySafety } from 'react-icons/ai';
+import { GiAmpleDress } from 'react-icons/gi';
+import { FaShoppingCart } from 'react-icons/fa';
+import { BsFillPersonFill } from 'react-icons/bs';
+type Props = {
+  color?: string;
+};
 const Navbar: React.FC = () => {
   return (
     <div>
+      {/* desktop nav */}
+      <DesktopNavContainer>
+        <NavContent>
+          <NavLogoContainer>
+            <NavLogo src={window.location.origin + '/logo.svg'} />
+          </NavLogoContainer>
+          <DesktopNav>
+            <NavItem href='/' as='/'>
+              <NavItemName color='black'>Home</NavItemName>
+            </NavItem>
+            <NavItem href='/products' as='/products'>
+              <NavItemName color='black'>Products</NavItemName>
+            </NavItem>
+          </DesktopNav>
+          <IconContainer>
+            <NavItem href='/cart' as='/cart'>
+              <NavItemIcon>
+                <FaShoppingCart fill='#795744' />
+              </NavItemIcon>
+              <NavItemName color='black'>Cart</NavItemName>
+            </NavItem>
+            <NavItem href='/login' as='/login'>
+              <NavItemIcon>
+                <BsFillPersonFill fill='#795744' />
+              </NavItemIcon>
+              <NavItemName color='black'>Login</NavItemName>
+            </NavItem>
+          </IconContainer>
+        </NavContent>
+      </DesktopNavContainer>
+      {/* Mobile nav */}
       <MobileNav>
         <NavItem href='/' as='/'>
-          <NavItemIcon>🏠</NavItemIcon>
+          <NavItemIcon>
+            <AiFillHome />
+          </NavItemIcon>
           <NavItemName>Home</NavItemName>
         </NavItem>
         <NavItem href='/products' as='/products'>
-          <NavItemIcon>🏠</NavItemIcon>
+          <NavItemIcon>
+            <GiAmpleDress />
+          </NavItemIcon>
           <NavItemName>Products</NavItemName>
         </NavItem>
-        <NavItem href='/about' as='/about'>
-          <NavItemIcon>🏠</NavItemIcon>
-          <NavItemName>About</NavItemName>
-        </NavItem>
+
         <NavItem href='/cart' as='/cart'>
-          <NavItemIcon>🏠</NavItemIcon>
+          <NavItemIcon>
+            <FaShoppingCart />
+          </NavItemIcon>
           <NavItemName>Cart</NavItemName>
         </NavItem>
         <NavItem href='/login' as='/login'>
-          <NavItemIcon>🏠</NavItemIcon>
+          <NavItemIcon>
+            <BsFillPersonFill />
+          </NavItemIcon>
           <NavItemName>Login</NavItemName>
         </NavItem>
       </MobileNav>
@@ -46,6 +88,7 @@ export default Navbar;
 
 */
 }
+// Mobile navbar
 const MobileNav = styled.div`
   width: 100%;
   height: 100px;
@@ -57,11 +100,59 @@ const MobileNav = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
 `;
 
-export const NavItemIcon = styled.span`
+const NavItemIcon = styled.span`
   font-size: 2rem;
 `;
-const NavItemName = styled.h3`
+const NavItemName = styled.h3<Props>`
   font-size: 0.875rem;
+  color: ${(Props) => Props.color || 'white'};
+`;
+//desktop navbar
+const DesktopNavContainer = styled.header`
+  display: block;
+  width: 100%;
+  @media screen and (min-width: 768px) {
+    display: block;
+  }
+`;
+const NavContent = styled.div`
+  width: 80%;
+  padding: 10px;
+  box-shadow: 0px 2px var(--clr-primary-7);
+
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @media screen and (min-width: 768px) {
+    justify-content: space-between;
+  }
+`;
+const DesktopNav = styled.nav`
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  width: 25%;
+  @media screen and (min-width: 768px) {
+    display: flex;
+  }
+`;
+const NavLogoContainer = styled.div`
+  width: 200px;
+`;
+const NavLogo = styled.img`
+  width: 100%;
+`;
+const IconContainer = styled.div`
+  display: none;
+  justify-content: space-between;
+  width: 15%;
+  @media screen and (min-width: 768px) {
+    display: flex;
+  }
 `;
