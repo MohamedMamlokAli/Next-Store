@@ -93,10 +93,9 @@ const MobileNav = styled.div`
   width: 100%;
   height: 100px;
   position: fixed;
+  z-index: 99;
   bottom: 0;
   background: var(--clr-primary-3);
-  border-top-left-radius: 10%;
-  border-top-right-radius: 10%;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
