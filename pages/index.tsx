@@ -1,112 +1,31 @@
-import type { NextPage } from 'next';
-import Link from 'next/link';
-import styled from 'styled-components';
-import { NavImage } from '../components/CoreComponents/Navbar/Navbar';
-import { NavItem } from '../components/Common/NavItem';
+import { GetStaticProps } from 'next';
+import { InferGetStaticPropsType } from 'next';
 
-const HeroSection = styled.section`
-  height: calc(100vh - 11.125rem);
-  width: 80%;
-  margin: 0px auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  @media screen and (min-width: 768px) {
-    text-align: left;
-    height: calc(100vh - 5.125rem);
+import { HeroSection } from '../components/CoreComponents/HeroSection/HeroSection';
+import { FeaturedProducts } from '../components/CoreComponents/FeaturedProducts/FeaturedProducts';
 
-    justify-content: space-between;
-    align-items: center;
-  }
-`;
+type ProductData = {
+  id: number;
+  title: string;
+  price: number;
+  category: string;
+  image: string;
+};
 
-const HeroSectionText = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  @media screen and (min-width: 768px) {
-    width: 40%;
-    align-items: flex-start;
-  }
-`;
-
-const SectionTitle = styled.h1`
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: var(--clr-gray-1);
-  @media screen and (min-width: 768px) {
-    font-size: 2.125rem;
-  }
-  @media screen and (min-width: 1024px) {
-    font-size: 3rem;
-  }
-`;
-
-const SectionDescription = styled.p`
-  line-height: 2;
-  font-size: 1rem;
-  color: var(--clr-grey-6);
-  max-width: 40em;
-  margin-bottom: 1rem;
-  @media screen and (min-width: 768px) {
-    font-size: 1.125rem;
-  }
-  @media screen and (min-width: 1024px) {
-    font-size: 1.25rem;
-  }
-`;
-
-const StyledLink = styled.a`
-  text-decoration: none;
-  letter-spacing: 2px;
-  font-size: 1rem;
-  background: var(--clr-primary-5);
-  color: var(--clr-primary-10);
-  border-radius: 10px;
-  padding: 1em 1.5em;
-  transition: all 300ms ease;
-  :hover {
-    color: var(--clr-primary-1);
-    background: var(--clr-primary-8);
-  }
-`;
-
-const HeroSectionImage = styled.div`
-  display: none;
-  width: 40%;
-  @media screen and (min-width: 768px) {
-    display: block;
-  }
-`;
-const Image = styled(NavImage)`
-  max-width: 450px;
-`;
-
-const Home: NextPage = () => {
+const Home = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <HeroSection>
-      <HeroSectionText>
-        <SectionTitle>
-          Design Your <br /> Comfort Zone
-        </SectionTitle>
-        <SectionDescription>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto, at
-          sed omnis corporis doloremque possimus velit! Repudiandae nisi odit,
-          aperiam odio ducimus, obcaecati libero et quia tempora excepturi quis
-          alias?
-        </SectionDescription>
-        <Link href='/products' as='/products' passHref>
-          <StyledLink>Shop now</StyledLink>
-        </Link>
-      </HeroSectionText>
-      <HeroSectionImage>
-        <Image src={'/hero-lg.jpg'} />
-      </HeroSectionImage>
-    </HeroSection>
+    <>
+      <HeroSection />
+      <FeaturedProducts data={data} />
+    </>
   );
 };
 
 export default Home;
+export const getStaticProps: GetStaticProps = async () => {
+  const res = await fetch('https://fakestoreapi.com/products?limit=3');
+  const data: ProductData[] = await res.json();
+  return {
+    props: { data },
+  };
+};
