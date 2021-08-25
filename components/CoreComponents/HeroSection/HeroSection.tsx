@@ -59,8 +59,9 @@ const SectionDescription = styled.p`
   }
 `;
 
-const StyledLink = styled.a`
+export const StyledLink = styled.a`
   text-decoration: none;
+  text-align: center;
   letter-spacing: 2px;
   font-size: 1rem;
   background: var(--clr-primary-5);
