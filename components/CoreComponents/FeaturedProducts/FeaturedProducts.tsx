@@ -105,12 +105,6 @@ export const FeaturedProducts: React.FC<Props> = ({ data }) => {
       <Link href='/products' as='/products' passHref>
         <StyledLink>All Products</StyledLink>
       </Link>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis quod,
-      harum id esse magnam deserunt, nisi sequi facilis eius totam hic
-      consequatur voluptatibus est fugiat tempora sint perferendis doloribus
-      similique dolor cumque magni! Ratione excepturi optio asperiores amet
-      temporibus consequatur obcaecati, non distinctio doloremque ab velit!
-      Aliquam inventore natus sapiente?
     </FeaturedProductsContainer>
   );
 };
