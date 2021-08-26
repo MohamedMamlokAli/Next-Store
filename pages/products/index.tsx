@@ -1,16 +1,14 @@
-import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
 import React from 'react';
-import { ProductData } from '..';
+import { useSelector } from 'react-redux';
+import { State } from '../../state';
 
-const products = ({
-  products,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
-  console.log(products);
+const Products = () => {
+  const productsData = useSelector((store: State) => store.products);
   return (
     <div>
       <div>
-        {products.map((item, index) => {
+        {productsData.map((item, index) => {
           return (
             <Link
               key={index}
@@ -26,15 +24,5 @@ const products = ({
     </div>
   );
 };
-export const getStaticProps = async () => {
-  const res = await fetch('https://fakestoreapi.com/products');
-  const products: ProductData[] = await res.json();
-  return {
-    props: {
-      products,
-    },
-    revalidate: false,
-  };
-};
 
-export default products;
+export default Products;
