@@ -115,9 +115,6 @@ const NavItemName = styled.h3<Props>`
 const DesktopNavContainer = styled.header`
   display: block;
   width: 100%;
-  @media screen and (min-width: 768px) {
-    display: block;
-  }
 `;
 const NavContent = styled.div`
   width: 80%;

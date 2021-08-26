@@ -24,6 +24,26 @@ const FeaturedProductsContainer = styled.section`
   align-items: center;
   justify-content: center;
   background: var(--clr-grey-10);
+  padding-bottom: 10rem;
+  @media screen and (min-width: 768px) {
+    padding-bottom: 4rem;
+  }
+`;
+const FeaturedSectionTitle = styled(SectionTitle)`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 10px;
+  ::after {
+    position: absolute;
+    content: '';
+    bottom: 0;
+    width: 50%;
+    height: 5px;
+    background: var(--clr-primary-6);
+  }
 `;
 const Products = styled.div`
   display: grid;
@@ -84,9 +104,9 @@ const ProductPrice = styled.span`
 export const FeaturedProducts: React.FC<Props> = ({ data }) => {
   return (
     <FeaturedProductsContainer>
-      <SectionTitle style={{ textAlign: 'center', fontSize: '1.5rem' }}>
+      <FeaturedSectionTitle style={{ textAlign: 'center', fontSize: '1.5rem' }}>
         Featured Products
-      </SectionTitle>
+      </FeaturedSectionTitle>
       <Products>
         {data.map((item, index) => {
           return (
