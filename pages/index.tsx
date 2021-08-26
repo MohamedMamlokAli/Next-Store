@@ -1,10 +1,11 @@
 import { GetStaticProps } from 'next';
 import { InferGetStaticPropsType } from 'next';
+import Head from 'next/head';
 
 import { HeroSection } from '../components/CoreComponents/HeroSection/HeroSection';
 import { FeaturedProducts } from '../components/CoreComponents/FeaturedProducts/FeaturedProducts';
 
-type ProductData = {
+export type ProductData = {
   id: number;
   title: string;
   price: number;
@@ -15,6 +16,9 @@ type ProductData = {
 const Home = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <>
+      <Head>
+        <title>Comfy Sloth</title>
+      </Head>
       <HeroSection />
       <FeaturedProducts data={data} />
     </>
