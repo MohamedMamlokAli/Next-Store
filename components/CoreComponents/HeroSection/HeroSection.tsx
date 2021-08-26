@@ -104,7 +104,7 @@ export const HeroSection = () => {
         </Link>
       </HeroSectionText>
       <HeroSectionImage>
-        <Image src={'/hero-lg.jpg'} />
+        <Image src={'/hero-lg.jpg'} alt='Hero section Image' />
       </HeroSectionImage>
     </HeroSectionContainer>
   );

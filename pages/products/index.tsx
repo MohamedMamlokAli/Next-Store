@@ -1,4 +1,4 @@
-import { InferGetStaticPropsType } from 'next';
+import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
 import React from 'react';
 import { ProductData } from '..';
@@ -13,7 +13,8 @@ const products = ({
         {products.map((item, index) => {
           return (
             <Link
-              href={`/products/${item.id}`}
+              key={index}
+              href='/products/[id]'
               as={`/products/${item.id}`}
               passHref
             >
@@ -25,9 +26,6 @@ const products = ({
     </div>
   );
 };
-
-export default products;
-
 export const getStaticProps = async () => {
   const res = await fetch('https://fakestoreapi.com/products');
   const products: ProductData[] = await res.json();
@@ -35,5 +33,8 @@ export const getStaticProps = async () => {
     props: {
       products,
     },
+    revalidate: false,
   };
 };
+
+export default products;
