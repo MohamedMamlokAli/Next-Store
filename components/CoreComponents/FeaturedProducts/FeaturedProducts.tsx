@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import { SectionTitle } from '../HeroSection/HeroSection';
 import { StyledLink } from '../HeroSection/HeroSection';
+import Image from 'next/image';
+import { returnFeaturedProducts } from '../../../utils';
+import { ProductCard } from '../../Common/ProductCard';
 
 type ProductData = {
   id: number;
@@ -59,67 +62,17 @@ const Products = styled.div`
     grid-template-columns: repeat(3, auto);
   }
 `;
-const ProductCard = styled.div`
-  width: 100%;
-  display: flex;
-  gap: 10px;
-  flex-direction: column;
-  border: 1px solid var(--clr-primary-5);
-  border-radius: 30px;
-  padding-bottom: 10px;
-  border-top-right-radius: 0;
-  overflow: hidden;
-  transition: transform 250ms ease-in-out;
-  :hover {
-    transform: rotate(-1deg) scale(1.05);
-  }
-`;
-const ProductImageContainer = styled.div`
-  width: 100%;
-  height: 200px;
-  background: white;
-`;
-const ProductImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-`;
-const ProductInfo = styled.div`
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  font-size: 0.875rem;
-  letter-spacing: var(--spacing);
-  padding: 0 1em;
-  font-weight: bold;
-`;
-const ProductName = styled.span`
-  width: 65%;
-  color: var(--clr-gray-1);
-`;
-const ProductPrice = styled.span`
-  color: var(--clr-primary-5);
-`;
 
 export const FeaturedProducts: React.FC<Props> = ({ data }) => {
+  const featured = returnFeaturedProducts(data);
   return (
     <FeaturedProductsContainer>
       <FeaturedSectionTitle style={{ textAlign: 'center', fontSize: '1.5rem' }}>
         Featured Products
       </FeaturedSectionTitle>
       <Products>
-        {data.map((item, index) => {
-          return (
-            <ProductCard key={item.id}>
-              <ProductImageContainer>
-                <ProductImage src={item.image} />
-              </ProductImageContainer>
-              <ProductInfo>
-                <ProductName>{item.title}</ProductName>
-                <ProductPrice>${item.price}</ProductPrice>
-              </ProductInfo>
-            </ProductCard>
-          );
+        {featured.map((item, index) => {
+          return <ProductCard ProductCardInfo={item} key={index} />;
         })}
       </Products>
       <Link href='/products' as='/products' passHref>
