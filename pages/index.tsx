@@ -1,4 +1,3 @@
-import { GetStaticProps } from 'next';
 import { InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 //Page components
@@ -8,8 +7,6 @@ import { FeaturedProducts } from '../components/CoreComponents/FeaturedProducts/
 import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators, State } from '../state';
 import { bindActionCreators } from 'redux';
-import { addProducts } from '../state/ActionCreators';
-import { returnFeaturedProducts } from '../utils';
 
 //End of imports
 export type ProductData = {
@@ -25,21 +22,19 @@ const Home = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const products = useSelector((store: State) => store.products);
   const { addProducts } = bindActionCreators(actionCreators, dispatch);
   addProducts(data);
-  const featured = returnFeaturedProducts(products);
-  console.log(products);
   return (
     <>
       <Head>
         <title>Comfy Sloth</title>
       </Head>
       <HeroSection />
-      <FeaturedProducts data={featured} />
+      <FeaturedProducts data={data} />
     </>
   );
 };
 
 export default Home;
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps = async () => {
   const res = await fetch('https://fakestoreapi.com/products/');
   const data: ProductData[] = await res.json();
   return {
