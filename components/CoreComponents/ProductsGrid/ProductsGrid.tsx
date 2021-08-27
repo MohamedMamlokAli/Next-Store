@@ -22,6 +22,9 @@ type Props = {
   ProductInfo: ProductData[];
 };
 const ProductsGrid: React.FC<Props> = ({ ProductInfo }) => {
+  if (ProductInfo.length === 0) {
+    return <h1>No Products Found</h1>;
+  }
   return (
     <ProductsContainer>
       {ProductInfo.map((product, index) => {
