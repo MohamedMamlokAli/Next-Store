@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ProductData } from '../../../pages';
 //Styled Components
 
 const FilterContainer = styled.div`
@@ -16,7 +17,12 @@ const CategoryListItem = styled.li``;
 const PriceFilterContainer = styled.div``;
 const PriceRange = styled.input``;
 const ClearFilters = styled.button``;
-const ProductsFilter = () => {
+type Props = {
+  setProducts: React.Dispatch<React.SetStateAction<ProductData[]>>;
+  ProductInfo: ProductData[];
+};
+
+const ProductsFilter: React.FC<Props> = ({ ProductInfo, setProducts }) => {
   return (
     <FilterContainer>
       <SearchContainer>
@@ -25,7 +31,21 @@ const ProductsFilter = () => {
       <CategoryContainer>
         <FiltersTitle>Category</FiltersTitle>
         <CategoryList>
-          <CategoryListItem>item1</CategoryListItem>
+          <CategoryListItem
+            onClick={() =>
+              setProducts([
+                {
+                  id: 1,
+                  category: 'Mens',
+                  image: '',
+                  price: 9.99,
+                  title: 'test',
+                },
+              ])
+            }
+          >
+            item1
+          </CategoryListItem>
           <CategoryListItem>item2</CategoryListItem>
           <CategoryListItem>item3</CategoryListItem>
           <CategoryListItem>item4</CategoryListItem>
@@ -35,7 +55,9 @@ const ProductsFilter = () => {
         <FiltersTitle>Price</FiltersTitle>
         <PriceRange type='range' />
       </PriceFilterContainer>
-      <ClearFilters>Clear Filters</ClearFilters>
+      <ClearFilters onClick={() => setProducts(ProductInfo)}>
+        Clear Filters
+      </ClearFilters>
     </FilterContainer>
   );
 };

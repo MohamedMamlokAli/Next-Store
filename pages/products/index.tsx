@@ -28,12 +28,14 @@ const ProductsAndFiltersContainer = styled.div`
 `;
 
 const Products = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const [Products, setProducts] = React.useState(data);
+
   return (
     <ProductsPage>
       <h1>Home / Products</h1>
       <ProductsAndFiltersContainer>
-        <ProductsFilter />
-        <ProductsGrid ProductInfo={data} />
+        <ProductsFilter ProductInfo={data} setProducts={setProducts} />
+        <ProductsGrid ProductInfo={Products} />
       </ProductsAndFiltersContainer>
     </ProductsPage>
   );

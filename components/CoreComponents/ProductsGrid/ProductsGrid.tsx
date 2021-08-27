@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { ProductCard } from '../../Common/ProductCard';
 import { ProductData } from '../../../pages';
