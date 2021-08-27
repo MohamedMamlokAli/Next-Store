@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import ProductsGrid from '../../components/CoreComponents/ProductsGrid/ProductsGrid';
 import { ProductData } from '..';
 import { InferGetStaticPropsType } from 'next';
+import { maxPrice, minPrice } from '../../utils';
 //Styled Components
 const ProductsPage = styled.section`
   display: flex;
@@ -29,13 +30,33 @@ const ProductsAndFiltersContainer = styled.div`
 
 const Products = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [Products, setProducts] = React.useState(data);
+  const [maximumPrice, setMaximumPrice] = React.useState(
+    Math.ceil(maxPrice(Products))
+  );
+  const [minimumPrice, setMinimumPrice] = React.useState(
+    Math.floor(minPrice(Products))
+  );
+  const [currentPriceValue, setCurrentPriceValue] =
+    React.useState(maximumPrice);
 
   return (
     <ProductsPage>
       <h1>Home / Products</h1>
       <ProductsAndFiltersContainer>
-        <ProductsFilter ProductInfo={data} setProducts={setProducts} />
-        <ProductsGrid ProductInfo={Products} />
+        <ProductsFilter
+          ProductInfo={data}
+          setProducts={setProducts}
+          setCurrentPriceValue={setCurrentPriceValue}
+          currentPriceValue={currentPriceValue}
+          maximum={maximumPrice}
+          minimum={minimumPrice}
+        />
+        <ProductsGrid
+          ProductInfo={Products.sort(
+            (firstElement, SecondElement) =>
+              firstElement.price - SecondElement.price
+          ).filter((item) => item.price <= currentPriceValue)}
+        />
       </ProductsAndFiltersContainer>
     </ProductsPage>
   );
