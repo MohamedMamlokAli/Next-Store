@@ -14,9 +14,6 @@ export const returnCategories = (products: ProductData[]) => {
   return uniqueCategories;
 };
 
-export const capitalize = (name: string) => {
-  return name[0].toUpperCase() + name.slice(1);
-};
 export const sortPrices = (products: ProductData[]) => {
   const duplicatedprices: number[] = products.map((item) => item.price);
   const uniqueprices: number[] = [...new Set(duplicatedprices)];

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ProductData } from '../../../pages';
-import { returnCategories, capitalize } from '../../../utils';
+import { returnCategories } from '../../../utils';
 //Styled Components
 
 const FilterContainer = styled.div`
@@ -35,9 +35,16 @@ const CategoryList = styled.ul`
   margin: 2px 0;
 `;
 const CategoryListItem = styled.li`
-  padding: 2px 0;
+  padding: 5px 0;
+  color: var(--clr-grey-5);
+  text-transform: capitalize;
   cursor: pointer;
   user-select: none;
+  width: max-content;
+  &.active {
+    border-bottom: 1px solid;
+    border-color: var(--clr-grey-5);
+  }
   :last-child {
     padding-bottom: 0;
   }
@@ -70,7 +77,7 @@ const ProductsFilter: React.FC<Props> = ({
   minimum,
 }) => {
   const categories = returnCategories(ProductInfo);
-
+  const [active, setActive] = React.useState(0);
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentPriceValue(parseInt(e.target.value));
   };
@@ -94,9 +101,11 @@ const ProductsFilter: React.FC<Props> = ({
                 setProducts(
                   ProductInfo.filter((product) => product.category == item)
                 );
+                setActive(index);
               }}
+              className={active == index ? `active` : ``}
             >
-              {capitalize(item)}
+              {item}
             </CategoryListItem>
           ))}
         </CategoryList>
