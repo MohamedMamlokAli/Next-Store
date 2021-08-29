@@ -7,6 +7,10 @@ const Layout: React.FC = ({ children }) => {
     <main>
       <Head>
         <meta
+          name='google-site-verification'
+          content='kO7ZgeZWyJC663DXNQu1mQ27oe3SThOTVlBNFnHFvSg'
+        />
+        <meta
           name='description'
           content='Buy Clothezs, Jewelery, Electronics and more from one place: Comfy Sloth'
         />
