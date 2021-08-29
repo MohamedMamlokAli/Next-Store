@@ -5,28 +5,57 @@ import { returnCategories, capitalize } from '../../../utils';
 //Styled Components
 
 const FilterContainer = styled.div`
-  position: sticky;
   height: 100%;
+  flex-basis: 20%;
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
   top: 50px;
+  @media screen and (min-width: 768px) {
+    position: sticky;
+  }
 `;
-const SearchContainer = styled.div``;
-const SearchBar = styled.input``;
+const SearchContainer = styled.div`
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid black;
+`;
+const SearchBar = styled.input`
+  padding: 0.5rem 1rem;
+  box-sizing: border-box;
+  border: none;
+  :focus {
+    outline: none;
+  }
+`;
 const FiltersTitle = styled.h4``;
 const CategoryContainer = styled.div``;
 const CategoryList = styled.ul`
   list-style: none;
+  margin: 2px 0;
 `;
-const CategoryListItem = styled.li``;
-const PriceFilterContainer = styled.div``;
+const CategoryListItem = styled.li`
+  padding: 2px 0;
+  cursor: pointer;
+  user-select: none;
+  :last-child {
+    padding-bottom: 0;
+  }
+`;
+const PriceFilterContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const PriceRange = styled.input``;
 const ClearFilters = styled.button``;
 type Props = {
-  setProducts: React.Dispatch<React.SetStateAction<ProductData[]>>;
-  setCurrentPriceValue: React.Dispatch<React.SetStateAction<number>>;
   currentPriceValue: number;
   maximum: number;
   minimum: number;
-
+  search: string;
+  setProducts: React.Dispatch<React.SetStateAction<ProductData[]>>;
+  setCurrentPriceValue: React.Dispatch<React.SetStateAction<number>>;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
   ProductInfo: ProductData[];
 };
 
@@ -34,6 +63,8 @@ const ProductsFilter: React.FC<Props> = ({
   ProductInfo,
   setProducts,
   setCurrentPriceValue,
+  setSearch,
+  search,
   currentPriceValue,
   maximum,
   minimum,
@@ -46,7 +77,12 @@ const ProductsFilter: React.FC<Props> = ({
   return (
     <FilterContainer>
       <SearchContainer>
-        <SearchBar type='text' />
+        <SearchBar
+          type='text'
+          placeholder='Search...'
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
       </SearchContainer>
       <CategoryContainer>
         <FiltersTitle>Category</FiltersTitle>
@@ -67,6 +103,8 @@ const ProductsFilter: React.FC<Props> = ({
       </CategoryContainer>
       <PriceFilterContainer>
         <FiltersTitle>Price</FiltersTitle>
+        <span>${currentPriceValue}</span>
+
         <PriceRange
           type='range'
           min={minimum}
@@ -74,7 +112,6 @@ const ProductsFilter: React.FC<Props> = ({
           value={currentPriceValue}
           onChange={(e) => handlePriceChange(e)}
         />
-        <span>${currentPriceValue}</span>
       </PriceFilterContainer>
       <ClearFilters onClick={() => setProducts(ProductInfo)}>
         Clear Filters

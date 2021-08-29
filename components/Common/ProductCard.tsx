@@ -12,6 +12,8 @@ export const ProductCardWrapper = styled.div`
   padding-bottom: 10px;
   border-top-right-radius: 0;
   overflow: hidden;
+  user-select: none;
+  cursor: pointer;
   transition: transform 250ms ease-in-out;
   :hover {
     transform: rotate(-1deg) scale(1.05);
@@ -37,6 +39,11 @@ export const ProductInfo = styled.div`
   font-weight: bold;
 `;
 export const ProductName = styled.span`
+  /* add ... if the text exceeds a certain width */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  /*  */
   width: 65%;
   color: var(--clr-gray-1);
 `;

@@ -23,7 +23,9 @@ type Props = {
 };
 const ProductsGrid: React.FC<Props> = ({ ProductInfo }) => {
   if (ProductInfo.length === 0) {
-    return <h1>No Products Found</h1>;
+    return (
+      <h1 style={{ textAlign: 'center', width: '100%' }}>No Products Found</h1>
+    );
   }
   return (
     <ProductsContainer>
