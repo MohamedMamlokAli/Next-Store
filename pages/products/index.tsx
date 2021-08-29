@@ -22,11 +22,11 @@ export const PageHeader = styled.header`
   height: 200px;
   background: var(--clr-primary-10);
   color: var(--clr-primary-1);
+  margin: 0;
   margin-bottom: 2rem;
-  padding-left: 1rem;
   div {
     max-width: 1166px;
-    width: 100%;
+    width: 90%;
     margin: 0 auto;
     display: flex;
     height: 100%;
