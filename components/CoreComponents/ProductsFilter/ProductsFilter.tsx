@@ -5,14 +5,24 @@ import { returnCategories } from '../../../utils';
 //Styled Components
 
 const FilterContainer = styled.div`
+  user-select: none;
+
   height: 100%;
   flex-basis: 20%;
   display: flex;
   gap: 2rem;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
   top: 50px;
   @media screen and (min-width: 768px) {
+    padding-left: 10px;
+
     position: sticky;
+    text-align: left;
+    align-items: flex-start;
+    justify-content: center;
   }
 `;
 const SearchContainer = styled.div`
@@ -28,22 +38,32 @@ const SearchBar = styled.input`
     outline: none;
   }
 `;
-const FiltersTitle = styled.h4``;
+const FiltersTitle = styled.h4`
+  font-size: 1rem;
+  font-weight: bold;
+`;
 const CategoryContainer = styled.div``;
 const CategoryList = styled.ul`
   list-style: none;
   margin: 2px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @media screen and (min-width: 768px) {
+    align-items: flex-start;
+  }
 `;
 const CategoryListItem = styled.li`
   padding: 5px 0;
   color: var(--clr-grey-5);
   text-transform: capitalize;
   cursor: pointer;
-  user-select: none;
   width: max-content;
   &.active {
-    border-bottom: 1px solid;
-    border-color: var(--clr-grey-5);
+    font-weight: bold;
+  }
+  :hover {
+    font-weight: bold;
   }
   :last-child {
     padding-bottom: 0;
@@ -53,8 +73,20 @@ const PriceFilterContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
+const Price = styled.span`
+  color: var(--clr-grey-3);
+`;
 const PriceRange = styled.input``;
-const ClearFilters = styled.button``;
+const ClearFilters = styled.button`
+  background: var(--clr-red-dark);
+  color: var(--clr-white);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius);
+  :hover {
+    color: var(--clr-red-dark);
+    background-color: var(--clr-white);
+  }
+`;
 type Props = {
   currentPriceValue: number;
   maximum: number;
@@ -112,7 +144,7 @@ const ProductsFilter: React.FC<Props> = ({
       </CategoryContainer>
       <PriceFilterContainer>
         <FiltersTitle>Price</FiltersTitle>
-        <span>${currentPriceValue}</span>
+        <Price>${currentPriceValue}</Price>
 
         <PriceRange
           type='range'
@@ -122,7 +154,13 @@ const ProductsFilter: React.FC<Props> = ({
           onChange={(e) => handlePriceChange(e)}
         />
       </PriceFilterContainer>
-      <ClearFilters onClick={() => setProducts(ProductInfo)}>
+      <ClearFilters
+        onClick={() => {
+          setProducts(ProductInfo);
+          setCurrentPriceValue(maximum);
+          setActive(5);
+        }}
+      >
         Clear Filters
       </ClearFilters>
     </FilterContainer>
