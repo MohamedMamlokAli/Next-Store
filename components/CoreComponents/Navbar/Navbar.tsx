@@ -89,7 +89,7 @@ export default Navbar;
 */
 }
 // Mobile navbar
-const MobileNav = styled.div`
+const MobileNav = styled.section`
   width: 100%;
   height: 100px;
   position: fixed;
