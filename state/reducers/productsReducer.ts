@@ -2,13 +2,14 @@ import { ProductData } from '../../pages';
 import { AddProductsAction } from '../Actions';
 import { ActionTypes } from '../ActionType';
 
-const initialState = [
+const initialState: ProductData[] = [
   {
     id: 0,
     title: '',
     price: 0,
     category: '',
     image: '',
+    description: '',
   },
 ];
 const productsReducer = (

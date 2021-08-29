@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ProductData } from '../../../pages';
 import Link from 'next/link';
 import { SectionTitle } from '../HeroSection/HeroSection';
 import { StyledLink } from '../HeroSection/HeroSection';
@@ -7,13 +8,6 @@ import Image from 'next/image';
 import { returnFeaturedProducts } from '../../../utils';
 import { ProductCard } from '../../Common/ProductCard';
 
-type ProductData = {
-  id: number;
-  title: string;
-  price: number;
-  category: string;
-  image: string;
-};
 type Props = {
   data: ProductData[];
 };
