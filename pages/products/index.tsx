@@ -3,20 +3,43 @@ import React from 'react';
 import ProductsFilter from '../../components/CoreComponents/ProductsFilter/ProductsFilter';
 import styled from 'styled-components';
 import ProductsGrid from '../../components/CoreComponents/ProductsGrid/ProductsGrid';
+import { SectionTitle } from '../../components/CoreComponents/HeroSection/HeroSection';
 import { ProductData } from '..';
 import { InferGetStaticPropsType } from 'next';
-import { maxPrice, minPrice } from '../../utils';
+import { maxPrice, minPrice, sortListDes, searchFilter } from '../../utils';
 //Styled Components
 const ProductsPage = styled.section`
   display: flex;
   flex-direction: column;
 `;
-
+const PageLinks = styled(SectionTitle)`
+  @media screen and (min-width: 768px) {
+    font-size: 2rem;
+  }
+`;
+export const PageHeader = styled.header`
+  width: 100%;
+  height: 200px;
+  background: var(--clr-primary-10);
+  color: var(--clr-primary-1);
+  margin-bottom: 2rem;
+  padding-left: 1rem;
+  div {
+    max-width: 1166px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: flex-start;
+  }
+`;
 const ProductsAndFiltersContainer = styled.div`
   max-width: 1150px;
   position: relative;
   width: 100%;
   margin: 0 auto;
+  gap: 5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -38,10 +61,15 @@ const Products = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
   );
   const [currentPriceValue, setCurrentPriceValue] =
     React.useState(maximumPrice);
+  const [search, setSearch] = React.useState(``);
 
   return (
     <ProductsPage>
-      <h1>Home / Products</h1>
+      <PageHeader>
+        <div>
+          <PageLinks>Home / Products</PageLinks>
+        </div>
+      </PageHeader>
       <ProductsAndFiltersContainer>
         <ProductsFilter
           ProductInfo={data}
@@ -50,12 +78,13 @@ const Products = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
           currentPriceValue={currentPriceValue}
           maximum={maximumPrice}
           minimum={minimumPrice}
+          search={search}
+          setSearch={setSearch}
         />
         <ProductsGrid
-          ProductInfo={Products.sort(
-            (firstElement, SecondElement) =>
-              firstElement.price - SecondElement.price
-          ).filter((item) => item.price <= currentPriceValue)}
+          ProductInfo={sortListDes(searchFilter(Products, search)).filter(
+            (item) => item.price <= currentPriceValue
+          )}
         />
       </ProductsAndFiltersContainer>
     </ProductsPage>

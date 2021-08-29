@@ -31,3 +31,17 @@ export const maxPrice = (products: ProductData[]) => {
   const max = prices[prices.length - 1];
   return max;
 };
+
+export const sortListDes = (products: ProductData[]) => {
+  const sortedProducts = products.sort((firstElement, secondElement) => {
+    return firstElement.price - secondElement.price;
+  });
+  return sortedProducts;
+};
+
+export const searchFilter = (products: ProductData[], search: string) => {
+  const filterdBasedOnSearchWord = products.filter((item) =>
+    item.title.toLowerCase().includes(`${search}`)
+  );
+  return filterdBasedOnSearchWord;
+};
