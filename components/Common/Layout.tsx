@@ -12,7 +12,7 @@ const Layout: React.FC = ({ children }) => {
         />
         <meta
           name='description'
-          content='Buy Clothezs, Jewelery, Electronics and more from one place: Comfy Sloth'
+          content='Buy Clothes, Jewelery, Electronics and more from one place: Comfy Sloth'
         />
         <link rel='canonical' href='https://next-store-mamluk.vercel.app/' />
         <meta name='robots' content='index, follow' />
