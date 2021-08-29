@@ -1,8 +1,11 @@
 import React from 'react';
+import Link from 'next/link';
 import styled from 'styled-components';
 import { ProductData } from '../../pages';
 //Styled Components
-export const ProductCardWrapper = styled.div`
+export const ProductCardWrapper = styled.a`
+  text-decoration: none;
+  color: var(--clr-gray-4);
   width: 100%;
   display: flex;
   gap: 10px;
@@ -56,16 +59,18 @@ type Props = {
 };
 
 export const ProductCard: React.FC<Props> = ({ ProductCardInfo }) => {
-  const { image, title, price } = ProductCardInfo;
+  const { image, title, price, id } = ProductCardInfo;
   return (
-    <ProductCardWrapper>
-      <ProductImageContainer>
-        <ProductImage src={image} alt='Product Image' />
-      </ProductImageContainer>
-      <ProductInfo>
-        <ProductName>{title}</ProductName>
-        <ProductPrice>${price}</ProductPrice>
-      </ProductInfo>
-    </ProductCardWrapper>
+    <Link href='/products/[id]' as={`/products/${id}`} passHref>
+      <ProductCardWrapper>
+        <ProductImageContainer>
+          <ProductImage src={image} alt='Product Image' />
+        </ProductImageContainer>
+        <ProductInfo>
+          <ProductName>{title}</ProductName>
+          <ProductPrice>${price}</ProductPrice>
+        </ProductInfo>
+      </ProductCardWrapper>
+    </Link>
   );
 };
