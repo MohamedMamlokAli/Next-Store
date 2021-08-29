@@ -2,7 +2,7 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import styled from 'styled-components';
 import { PageHeader, PageLinks } from '.';
-import { ClearFilters } from '../../components/CoreComponents/ProductsFilter/ProductsFilter';
+import Button from '../../components/Common/Button';
 import { ProductData } from '..';
 import React from 'react';
 import Head from 'next/head';
@@ -12,35 +12,18 @@ interface IdQuery extends ParsedUrlQuery {
 //Styled Components
 const PageWrapper = styled.section`
   padding-bottom: 10rem;
+  @media screen and (min-width: 768px) {
+    padding-bottom: 2rem;
+  }
 `;
 const ProductContainer = styled.div`
   max-width: 1150px;
   margin: 0 auto;
 `;
-const Button = styled(ClearFilters)`
-  background: var(--clr-primary-5);
-  color: var(--clr-primary-10);
-  padding: 0.375rem 0.75rem;
-  letter-spacing: var(--spacing);
-  font-weight: 400;
-  font-size: 0.875rem;
-  cursor: pointer;
-  border-radius: 10px;
-  border-color: transparent;
-  transition: all 0.3s ease;
-  :hover {
-    color: var(--clr-primary-5);
-    background: var(--clr-primary-10);
-  }
-  @media screen and (min-width: 768px) {
-    font-size: 1rem;
-  }
-`;
 
 const ProductDetails = styled.div`
   display: flex;
   flex-direction: column;
-
   gap: 2rem;
   padding: 1rem;
   @media screen and (min-width: 768px) {
@@ -49,12 +32,18 @@ const ProductDetails = styled.div`
 `;
 const ProductImageContainer = styled.div`
   flex-basis: 100%;
-  height: 100%;
+  height: 300px;
+  @media screen and (min-width: 768px) {
+    height: 500px;
+  }
 `;
 const ProductImage = styled.img`
   width: 100%;
-  height: 100%;
+  height: 300px;
   object-fit: contain;
+  @media screen and (min-width: 768px) {
+    height: 500px;
+  }
 `;
 const ProductInfoContainer = styled.div`
   flex-basis: 100%;
@@ -99,6 +88,7 @@ const AmountContainer = styled.div`
   display: flex;
   gap: 1rem;
   font-size: 3rem;
+  margin-bottom: 1rem;
   align-items: center;
 `;
 const IncrementDecrement = styled.button`
@@ -128,7 +118,9 @@ const Product = ({
         </div>
       </PageHeader>
       <ProductContainer>
-        <Button>Return to Products Page</Button>
+        <Button href='/products' as='/products'>
+          Return to Products Page
+        </Button>
         <ProductDetails>
           <ProductImageContainer>
             <ProductImage src={productData.image} alt={productData.title} />
@@ -145,7 +137,13 @@ const Product = ({
                 <Amount>1</Amount>
                 <IncrementDecrement>+</IncrementDecrement>
               </AmountContainer>
-              <Button>Add To Cart</Button>
+              <Button
+                href='/cart'
+                as='/cart'
+                onClick={() => console.log('clicked')}
+              >
+                Add To Cart
+              </Button>
             </AddToCartContainer>
           </ProductInfoContainer>
         </ProductDetails>
