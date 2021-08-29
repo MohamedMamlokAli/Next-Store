@@ -77,7 +77,7 @@ const Price = styled.span`
   color: var(--clr-grey-3);
 `;
 const PriceRange = styled.input``;
-const ClearFilters = styled.button`
+export const ClearFilters = styled.button`
   background: var(--clr-red-dark);
   color: var(--clr-white);
   padding: 0.25rem 0.5rem;
@@ -109,7 +109,7 @@ const ProductsFilter: React.FC<Props> = ({
   minimum,
 }) => {
   const categories = returnCategories(ProductInfo);
-  const [active, setActive] = React.useState(0);
+  const [active, setActive] = React.useState(5);
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentPriceValue(parseInt(e.target.value));
   };

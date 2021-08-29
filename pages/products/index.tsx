@@ -7,12 +7,15 @@ import { SectionTitle } from '../../components/CoreComponents/HeroSection/HeroSe
 import { ProductData } from '..';
 import { InferGetStaticPropsType } from 'next';
 import { maxPrice, minPrice, sortListDes, searchFilter } from '../../utils';
+import Head from 'next/head';
 //Styled Components
 const ProductsPage = styled.section`
   display: flex;
   flex-direction: column;
 `;
-const PageLinks = styled(SectionTitle)`
+export const PageLinks = styled(SectionTitle)`
+  font-size: 1.5rem;
+  letter-spacing: 1px;
   @media screen and (min-width: 768px) {
     font-size: 2rem;
   }
@@ -65,6 +68,9 @@ const Products = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
 
   return (
     <ProductsPage>
+      <Head>
+        <title>Products</title>
+      </Head>
       <PageHeader>
         <div>
           <PageLinks>Home / Products</PageLinks>
