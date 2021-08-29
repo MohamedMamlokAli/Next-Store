@@ -15,7 +15,7 @@ const Navbar: React.FC = () => {
       <DesktopNavContainer>
         <NavContent>
           <NavLogoContainer>
-            <NavImage src={'/logo.svg'} />
+            <NavImage src={'/logo.svg'} alt='Comfy Sloth Logo' />
           </NavLogoContainer>
           <DesktopNav>
             <NavItem href='/' as='/'>
