@@ -72,7 +72,17 @@ const cartReducer = (state = initialCartState, action: CartActions) => {
         };
       } else {
         console.log('Product IS NOT  THERE');
-        return state;
+        const newCart = [...state.ProductsInCart, currentProductToAdd];
+        const totalPrice = newCart.reduce((prev, next) => {
+          const nextProductPrice = next.amount * next.price;
+          const acc = prev + nextProductPrice;
+          return acc;
+        }, 0);
+
+        return {
+          TotalPrice: totalPrice,
+          ProductsInCart: [...newCart],
+        };
       }
     case ActionTypes.REMOVE_PRODUCT_FROM_CART:
 

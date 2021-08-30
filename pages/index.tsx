@@ -3,10 +3,6 @@ import Head from 'next/head';
 //Page components
 import { HeroSection } from '../components/CoreComponents/HeroSection/HeroSection';
 import { FeaturedProducts } from '../components/CoreComponents/FeaturedProducts/FeaturedProducts';
-//Redux functions and state imports
-import { useSelector, useDispatch } from 'react-redux';
-import { actionCreators, State } from '../state';
-import { bindActionCreators } from 'redux';
 
 //End of imports
 export type ProductData = {

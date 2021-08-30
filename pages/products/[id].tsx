@@ -176,8 +176,8 @@ const Product = ({
                 <IncrementDecrement onClick={increase}>+</IncrementDecrement>
               </AmountContainer>
               <Button
-                href='#'
-                as='#'
+                href='/cart'
+                as='/cart'
                 onClick={() => {
                   addProductToCart({
                     amount: amount,
