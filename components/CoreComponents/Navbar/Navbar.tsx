@@ -111,9 +111,6 @@ const NavItemName = styled.h3<Props>`
   font-size: 0.875rem;
   padding-bottom: 2px;
   color: ${(Props) => Props.color || 'white'};
-  :hover {
-    border-bottom: 2px solid var(--clr-primary-1);
-  }
 `;
 //desktop navbar
 const DesktopNavContainer = styled.header`
