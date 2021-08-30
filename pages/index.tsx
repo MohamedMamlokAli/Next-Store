@@ -19,10 +19,6 @@ export type ProductData = {
 };
 
 const Home = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const dispatch = useDispatch();
-  const products = useSelector((store: State) => store.products);
-  const { addProducts } = bindActionCreators(actionCreators, dispatch);
-  addProducts(data);
   return (
     <>
       <Head>

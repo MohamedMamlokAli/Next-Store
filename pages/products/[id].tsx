@@ -6,6 +6,12 @@ import Button from '../../components/Common/Button';
 import { ProductData } from '..';
 import React from 'react';
 import Head from 'next/head';
+import { useDispatch } from 'react-redux';
+
+import { actionCreators, State } from '../../state';
+
+import { bindActionCreators } from 'redux';
+
 import CustomLink from '../../components/Common/CustomLink';
 interface IdQuery extends ParsedUrlQuery {
   id: string;
@@ -122,6 +128,8 @@ const Product = ({
   productData,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [amount, setAmount] = React.useState(1);
+  const dispatch = useDispatch();
+  const { addProductToCart } = bindActionCreators(actionCreators, dispatch);
   const decrease = () => {
     setAmount(amount !== 1 ? amount - 1 : 1);
   };
@@ -168,9 +176,19 @@ const Product = ({
                 <IncrementDecrement onClick={increase}>+</IncrementDecrement>
               </AmountContainer>
               <Button
-                href='/cart'
-                as='/cart'
-                onClick={() => console.log('clicked')}
+                href='#'
+                as='#'
+                onClick={() => {
+                  addProductToCart({
+                    amount: amount,
+                    category: productData.category,
+                    description: productData.description,
+                    id: productData.id,
+                    image: productData.image,
+                    price: productData.price,
+                    title: productData.title,
+                  });
+                }}
               >
                 Add To Cart
               </Button>
