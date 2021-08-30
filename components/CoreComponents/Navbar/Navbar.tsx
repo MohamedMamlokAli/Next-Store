@@ -19,10 +19,10 @@ const Navbar: React.FC = () => {
           </NavLogoContainer>
           <DesktopNav>
             <NavItem href='/' as='/'>
-              <NavItemName color='black'>Home</NavItemName>
+              <NavItemName color='#324d67'>Home</NavItemName>
             </NavItem>
             <NavItem href='/products' as='/products'>
-              <NavItemName color='black'>Products</NavItemName>
+              <NavItemName color='#324d67'>Products</NavItemName>
             </NavItem>
           </DesktopNav>
           <IconContainer>
@@ -30,13 +30,13 @@ const Navbar: React.FC = () => {
               <NavItemIcon>
                 <FaShoppingCart fill='#795744' />
               </NavItemIcon>
-              <NavItemName color='black'>Cart</NavItemName>
+              <NavItemName color='#324d67'>Cart</NavItemName>
             </NavItem>
             <NavItem href='/login' as='/login'>
               <NavItemIcon>
                 <BsFillPersonFill fill='#795744' />
               </NavItemIcon>
-              <NavItemName color='black'>Login</NavItemName>
+              <NavItemName color='#324d67'>Login</NavItemName>
             </NavItem>
           </IconContainer>
         </NavContent>
@@ -109,7 +109,11 @@ const NavItemIcon = styled.span`
 `;
 const NavItemName = styled.h3<Props>`
   font-size: 0.875rem;
+  padding-bottom: 2px;
   color: ${(Props) => Props.color || 'white'};
+  :hover {
+    border-bottom: 2px solid var(--clr-primary-1);
+  }
 `;
 //desktop navbar
 const DesktopNavContainer = styled.header`

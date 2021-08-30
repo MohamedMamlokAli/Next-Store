@@ -6,6 +6,7 @@ import Button from '../../components/Common/Button';
 import { ProductData } from '..';
 import React from 'react';
 import Head from 'next/head';
+import CustomLink from '../../components/Common/CustomLink';
 interface IdQuery extends ParsedUrlQuery {
   id: string;
 }
@@ -14,6 +15,19 @@ const PageWrapper = styled.section`
   padding-bottom: 10rem;
   @media screen and (min-width: 768px) {
     padding-bottom: 2rem;
+  }
+`;
+export const LinkItem = styled.h2`
+  display: inline;
+  color: var(--clr-primary-3);
+  padding: 0.5rem;
+  transition: var(--transition);
+  font-size: 1.5rem;
+  :hover {
+    color: var(--clr-grey-5);
+  }
+  @media screen and (min-width: 768px) {
+    font-size: 2rem;
   }
 `;
 const ProductContainer = styled.div`
@@ -107,6 +121,13 @@ const Amount = styled.span``;
 const Product = ({
   productData,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const [amount, setAmount] = React.useState(1);
+  const decrease = () => {
+    setAmount(amount !== 1 ? amount - 1 : 1);
+  };
+  const increase = () => {
+    setAmount(amount + 1);
+  };
   return (
     <PageWrapper>
       <Head>
@@ -114,7 +135,16 @@ const Product = ({
       </Head>
       <PageHeader>
         <div>
-          <PageLinks>Home / Products / {productData.title}</PageLinks>
+          <PageLinks>
+            <CustomLink href='/' as='/'>
+              <LinkItem>Home</LinkItem>
+            </CustomLink>
+            /
+            <CustomLink href='/products' as='/products'>
+              <LinkItem>Products</LinkItem>
+            </CustomLink>
+            / {productData.title}
+          </PageLinks>
         </div>
       </PageHeader>
       <ProductContainer>
@@ -133,9 +163,9 @@ const Product = ({
             </ProductDiscription>
             <AddToCartContainer>
               <AmountContainer>
-                <IncrementDecrement>-</IncrementDecrement>
-                <Amount>1</Amount>
-                <IncrementDecrement>+</IncrementDecrement>
+                <IncrementDecrement onClick={decrease}>-</IncrementDecrement>
+                <Amount>{amount}</Amount>
+                <IncrementDecrement onClick={increase}>+</IncrementDecrement>
               </AmountContainer>
               <Button
                 href='/cart'

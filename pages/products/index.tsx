@@ -8,6 +8,8 @@ import { ProductData } from '..';
 import { InferGetStaticPropsType } from 'next';
 import { maxPrice, minPrice, sortListDes, searchFilter } from '../../utils';
 import Head from 'next/head';
+import CustomLink from '../../components/Common/CustomLink';
+import { LinkItem } from './[id]';
 //Styled Components
 const ProductsPage = styled.section`
   display: flex;
@@ -73,7 +75,12 @@ const Products = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
       </Head>
       <PageHeader>
         <div>
-          <PageLinks>Home / Products</PageLinks>
+          <PageLinks>
+            <CustomLink href='/' as='/'>
+              <LinkItem>Home</LinkItem>
+            </CustomLink>
+            / Products
+          </PageLinks>
         </div>
       </PageHeader>
       <ProductsAndFiltersContainer>

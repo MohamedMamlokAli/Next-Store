@@ -14,6 +14,12 @@ const Anchor = styled('a')`
   flex-basis: 100%;
   text-align: center;
   color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1rem;
+  text-transform: capitalize;
+  letter-spacing: var(--spacing);
 `;
 
 export const NavItem = ({ className, href, as, children }: CustomLinkProps) => (

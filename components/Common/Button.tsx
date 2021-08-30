@@ -5,8 +5,9 @@ const Anchor = styled.a`
   text-decoration: none;
   background: var(--clr-primary-5);
   color: var(--clr-primary-10);
-  padding: 0.375rem 0.75rem;
+  padding: 0.5rem 0.75rem;
   letter-spacing: var(--spacing);
+  white-space: nowrap;
   font-weight: 400;
   font-size: 0.875rem;
   cursor: pointer;
