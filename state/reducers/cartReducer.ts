@@ -62,8 +62,8 @@ const cartReducer = (state = initialCartState, action: CartActions) => {
         ];
         const totalPrice = productsInCartAfterUpdate.reduce((prev, next) => {
           const nextProductPrice = next.amount * next.price;
-          const acc = prev + nextProductPrice;
-          return acc;
+          const accumulator = prev + nextProductPrice;
+          return accumulator;
         }, 0);
         return {
           ...state,
@@ -75,8 +75,8 @@ const cartReducer = (state = initialCartState, action: CartActions) => {
         const newCart = [...state.ProductsInCart, currentProductToAdd];
         const totalPrice = newCart.reduce((prev, next) => {
           const nextProductPrice = next.amount * next.price;
-          const acc = prev + nextProductPrice;
-          return acc;
+          const accumulator = prev + nextProductPrice;
+          return accumulator;
         }, 0);
 
         return {
