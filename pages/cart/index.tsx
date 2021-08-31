@@ -1,8 +1,8 @@
 import { NextPage } from 'next';
 import React from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
-import { State } from '../../state';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionCreators, State } from '../../state';
 import Head from 'next/head';
 import { PageHeader, PageLinks } from '../products';
 import CustomLink from '../../components/Common/CustomLink';
@@ -10,6 +10,7 @@ import { LinkItem } from '../products/[id]';
 import Button from '../../components/Common/Button';
 import { ProductPrice } from '../../components/Common/ProductCard';
 import { ClearFilters } from '../../components/CoreComponents/ProductsFilter/ProductsFilter';
+import { bindActionCreators } from 'redux';
 //Styled Components
 const CartWrapper = styled.section`
   padding-bottom: 10rem;
@@ -100,6 +101,11 @@ const RemoveProduct = styled(ClearFilters)`
 `;
 const CartPage: NextPage = () => {
   const cart = useSelector((state: State) => state.cart);
+  const dispatch = useDispatch();
+  const { removeProductfromCart } = bindActionCreators(
+    actionCreators,
+    dispatch
+  );
   return (
     <CartWrapper>
       <Head>
@@ -140,7 +146,11 @@ const CartPage: NextPage = () => {
                 <DesktopProductPrice>${product.price}</DesktopProductPrice>
                 <ProductAmount>{product.amount}</ProductAmount>
                 <SubTotal>${product.price * product.amount}</SubTotal>
-                <RemoveProduct>Remove</RemoveProduct>
+                <RemoveProduct
+                  onClick={() => removeProductfromCart(product.id)}
+                >
+                  Remove
+                </RemoveProduct>
               </Product>
             );
           })}

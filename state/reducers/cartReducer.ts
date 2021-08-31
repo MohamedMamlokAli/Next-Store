@@ -43,7 +43,6 @@ const cartReducer = (state = initialCartState, action: CartActions) => {
         (product) => product.id == currentProductToAdd.id
       );
       if (CheckIfProductInCart.length > 0) {
-        console.log('Product IS ALREADY THERE');
         const CartWithoutTheProduct = state.ProductsInCart.filter(
           (product) => product.id !== currentProductToAdd.id
         );
@@ -71,7 +70,6 @@ const cartReducer = (state = initialCartState, action: CartActions) => {
           ProductsInCart: [...CartWithoutTheProduct, productAfterUpdate],
         };
       } else {
-        console.log('Product IS NOT  THERE');
         const newCart = [...state.ProductsInCart, currentProductToAdd];
         const totalPrice = newCart.reduce((prev, next) => {
           const nextProductPrice = next.amount * next.price;
@@ -85,7 +83,19 @@ const cartReducer = (state = initialCartState, action: CartActions) => {
         };
       }
     case ActionTypes.REMOVE_PRODUCT_FROM_CART:
-
+      const idOfTheProduct = action.payload;
+      const cartWithoutTheremovedProduct = state.ProductsInCart.filter(
+        (product) => product.id !== idOfTheProduct
+      );
+      const totalPrice = cartWithoutTheremovedProduct.reduce((prev, next) => {
+        const nextProductPrice = next.amount * next.price;
+        const accumulator = prev + nextProductPrice;
+        return accumulator;
+      }, 0);
+      return {
+        TotalPrice: totalPrice,
+        ProductsInCart: [...cartWithoutTheremovedProduct],
+      };
     default:
       return state;
   }

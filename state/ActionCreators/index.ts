@@ -20,3 +20,11 @@ export const addProductToCart = (product: ProductDataWithAmount) => {
     });
   };
 };
+export const removeProductfromCart = (number: number) => {
+  return (dispatch: Dispatch<CartActions>) => {
+    dispatch({
+      type: ActionTypes.REMOVE_PRODUCT_FROM_CART,
+      payload: number,
+    });
+  };
+};
