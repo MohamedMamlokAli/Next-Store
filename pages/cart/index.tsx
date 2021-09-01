@@ -162,10 +162,14 @@ const CartPage: NextPage = () => {
                   <ProductImage src={product.image} />
                   <div>
                     <ProductName>{product.title}</ProductName>
-                    <MobileProductPrice>${product.price}</MobileProductPrice>
+                    <MobileProductPrice>
+                      ${Math.floor(product.price)}
+                    </MobileProductPrice>
                   </div>
                 </ProductImageNameContainer>
-                <DesktopProductPrice>${product.price}</DesktopProductPrice>
+                <DesktopProductPrice>
+                  ${Math.floor(product.price)}
+                </DesktopProductPrice>
                 <ProductAmount>{product.amount}</ProductAmount>
                 <SubTotal>
                   ${Math.floor(product.price * product.amount)}
