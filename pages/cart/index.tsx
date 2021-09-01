@@ -187,7 +187,7 @@ const CartPage: NextPage = () => {
           <CheckoutContainer>
             <PriceAndButton>
               <TotalPrice>
-                Total Price: {Math.floor(cart.TotalPrice)}
+                Total Price: ${Math.floor(cart.TotalPrice)}
               </TotalPrice>
               <CheckoutLoginButton>Checkout</CheckoutLoginButton>
             </PriceAndButton>
