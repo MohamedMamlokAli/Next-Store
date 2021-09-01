@@ -68,7 +68,7 @@ export const ProductCard: React.FC<Props> = ({ ProductCardInfo }) => {
         </ProductImageContainer>
         <ProductInfo>
           <ProductName>{title}</ProductName>
-          <ProductPrice>${price}</ProductPrice>
+          <ProductPrice>${Math.floor(price)}</ProductPrice>
         </ProductInfo>
       </ProductCardWrapper>
     </Link>

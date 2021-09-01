@@ -99,6 +99,25 @@ const RemoveProduct = styled(ClearFilters)`
     width: 20%;
   }
 `;
+const CheckoutContainer = styled.section`
+  @media screen and (min-width: 768px) {
+    justify-content: flex-end;
+  }
+  display: flex;
+  justify-content: center;
+`;
+const PriceAndButton = styled.div`
+  width: 200px;
+  border: 2px solid var(--clr-primary-2);
+  padding: 1rem;
+  border-radius: 20px;
+`;
+const TotalPrice = styled.h4`
+  margin-bottom: 0.5rem;
+`;
+const CheckoutLoginButton = styled(ClearFilters)`
+  width: 100%;
+`;
 const CartPage: NextPage = () => {
   const cart = useSelector((state: State) => state.cart);
   const dispatch = useDispatch();
@@ -133,6 +152,9 @@ const CartPage: NextPage = () => {
             <HeaderTitle>Total Price</HeaderTitle>
             <HeaderTitle></HeaderTitle>
           </CartInfoHeader>
+          {cart.ProductsInCart.length < 1 && (
+            <h1 style={{ textAlign: 'center' }}>There are no products</h1>
+          )}
           {cart.ProductsInCart.map((product, index) => {
             return (
               <Product key={product.id}>
@@ -145,7 +167,9 @@ const CartPage: NextPage = () => {
                 </ProductImageNameContainer>
                 <DesktopProductPrice>${product.price}</DesktopProductPrice>
                 <ProductAmount>{product.amount}</ProductAmount>
-                <SubTotal>${product.price * product.amount}</SubTotal>
+                <SubTotal>
+                  ${Math.floor(product.price * product.amount)}
+                </SubTotal>
                 <RemoveProduct
                   onClick={() => removeProductfromCart(product.id)}
                 >
@@ -155,6 +179,16 @@ const CartPage: NextPage = () => {
             );
           })}
         </ProductContainer>
+        {cart.ProductsInCart.length >= 1 && (
+          <CheckoutContainer>
+            <PriceAndButton>
+              <TotalPrice>
+                Total Price: {Math.floor(cart.TotalPrice)}
+              </TotalPrice>
+              <CheckoutLoginButton>Checkout</CheckoutLoginButton>
+            </PriceAndButton>
+          </CheckoutContainer>
+        )}
       </CartInfoContainer>
     </CartWrapper>
   );

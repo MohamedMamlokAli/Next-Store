@@ -165,7 +165,7 @@ const Product = ({
           </ProductImageContainer>
           <ProductInfoContainer>
             <ProductName>{productData.title}</ProductName>
-            <ProductPrice>${productData.price}</ProductPrice>
+            <ProductPrice>${Math.floor(productData.price)}</ProductPrice>
             <ProductDiscription>
               {productData.description.replace(/\//g, ', ')}
             </ProductDiscription>
