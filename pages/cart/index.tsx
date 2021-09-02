@@ -139,7 +139,7 @@ const CartPage: NextPage = () => {
         setUser(null);
       }
     });
-  }, [setUser]);
+  }, []);
   return (
     <CartWrapper>
       <Head>

@@ -75,7 +75,7 @@ const Products = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
         setUser(null);
       }
     });
-  }, []);
+  }, [setUser]);
 
   const [Products, setProducts] = React.useState(data);
   const [maximumPrice, setMaximumPrice] = React.useState(
