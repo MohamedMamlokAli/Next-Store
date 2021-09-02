@@ -11,6 +11,8 @@ import Button from '../../components/Common/Button';
 import { ProductPrice } from '../../components/Common/ProductCard';
 import { ClearFilters } from '../../components/CoreComponents/ProductsFilter/ProductsFilter';
 import { bindActionCreators } from 'redux';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../../firebase';
 //Styled Components
 const CartWrapper = styled.section`
   padding-bottom: 10rem;
@@ -120,11 +122,24 @@ const CheckoutLoginButton = styled(ClearFilters)`
 `;
 const CartPage: NextPage = () => {
   const cart = useSelector((state: State) => state.cart);
+  const user = useSelector((state: State) => state.user);
+
   const dispatch = useDispatch();
-  const { removeProductfromCart } = bindActionCreators(
+  const { setUser, removeProductfromCart } = bindActionCreators(
     actionCreators,
     dispatch
   );
+  React.useEffect(() => {
+    onAuthStateChanged(auth, (authuser) => {
+      if (authuser) {
+        console.log('the user is ', typeof authuser.email);
+        setUser(authuser.email);
+      } else {
+        console.log('User is logged out');
+        setUser(null);
+      }
+    });
+  }, []);
   return (
     <CartWrapper>
       <Head>
@@ -189,7 +204,9 @@ const CartPage: NextPage = () => {
               <TotalPrice>
                 Total Price: ${Math.floor(cart.TotalPrice)}
               </TotalPrice>
-              <CheckoutLoginButton>Checkout</CheckoutLoginButton>
+              <CheckoutLoginButton>
+                {user.user ? 'Checkout' : 'Login'}
+              </CheckoutLoginButton>
             </PriceAndButton>
           </CheckoutContainer>
         )}

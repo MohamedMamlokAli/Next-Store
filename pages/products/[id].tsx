@@ -8,11 +8,13 @@ import React from 'react';
 import Head from 'next/head';
 import { useDispatch } from 'react-redux';
 
-import { actionCreators, State } from '../../state';
+import { actionCreators } from '../../state';
 
 import { bindActionCreators } from 'redux';
 
 import CustomLink from '../../components/Common/CustomLink';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../../firebase';
 interface IdQuery extends ParsedUrlQuery {
   id: string;
 }
@@ -129,7 +131,21 @@ const Product = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [amount, setAmount] = React.useState(1);
   const dispatch = useDispatch();
-  const { addProductToCart } = bindActionCreators(actionCreators, dispatch);
+  const { setUser, addProductToCart } = bindActionCreators(
+    actionCreators,
+    dispatch
+  );
+  React.useEffect(() => {
+    onAuthStateChanged(auth, (authuser) => {
+      if (authuser) {
+        console.log('the user is ', typeof authuser.email);
+        setUser(authuser.email);
+      } else {
+        console.log('User is logged out');
+        setUser(null);
+      }
+    });
+  }, []);
   const decrease = () => {
     setAmount(amount !== 1 ? amount - 1 : 1);
   };

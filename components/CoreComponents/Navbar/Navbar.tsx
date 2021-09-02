@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import { NavItem } from '../../Common/NavItem';
-import { AiFillHome, AiFillPropertySafety } from 'react-icons/ai';
+import { AiFillHome } from 'react-icons/ai';
 import { GiAmpleDress } from 'react-icons/gi';
 import { FaShoppingCart } from 'react-icons/fa';
 import { BsFillPersonFill } from 'react-icons/bs';
