@@ -9,7 +9,7 @@ import { InferGetStaticPropsType } from 'next';
 import { maxPrice, minPrice, sortListDes, searchFilter } from '../../utils';
 import Head from 'next/head';
 import CustomLink from '../../components/Common/CustomLink';
-import { LinkItem } from './[id]';
+import { LinkItem } from '../../components/Common/singleProductStyles';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { useDispatch } from 'react-redux';
