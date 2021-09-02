@@ -33,7 +33,7 @@ const Home = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
         setUser(null);
       }
     });
-  }, []);
+  }, [setUser]);
 
   return (
     <>

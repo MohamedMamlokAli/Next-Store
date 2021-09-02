@@ -57,7 +57,7 @@ const FormInput = styled.input`
   }
 `;
 
-const loginpage = () => {
+const Loginpage = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const router = useRouter();
@@ -136,4 +136,4 @@ const loginpage = () => {
   );
 };
 
-export default loginpage;
+export default Loginpage;

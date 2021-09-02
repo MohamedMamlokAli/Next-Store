@@ -145,7 +145,7 @@ const Product = ({
         setUser(null);
       }
     });
-  }, []);
+  }, [setUser]);
   const decrease = () => {
     setAmount(amount !== 1 ? amount - 1 : 1);
   };
