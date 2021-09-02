@@ -5,7 +5,7 @@ import { testSignIn, testSignOut, testSignUp } from '../../firebase';
 import { useRouter } from 'next/router';
 import { PageHeader, PageLinks } from '../products';
 import CustomLink from '../../components/Common/CustomLink';
-import { LinkItem } from '../products/[id]';
+import { LinkItem } from '../../components/Common/singleProductStyles';
 import Button from '../../components/Common/Button';
 
 //styled components
