@@ -83,18 +83,24 @@ const Product = ({
                   +
                 </styles.IncrementDecrement>
               </styles.AmountContainer>
-              <Button
-                href='/cart'
-                as='/cart'
-                onClick={() => {
-                  updateFirestore({
-                    ...productData,
-                    amount: amount,
-                  });
-                }}
-              >
-                Add To Cart
-              </Button>
+              {!user.user ? (
+                <Button href='/login' as='/login'>
+                  Login to add product to cart
+                </Button>
+              ) : (
+                <Button
+                  href='/cart'
+                  as='/cart'
+                  onClick={() => {
+                    updateFirestore({
+                      ...productData,
+                      amount: amount,
+                    });
+                  }}
+                >
+                  Add To Cart
+                </Button>
+              )}
             </styles.AddToCartContainer>
           </styles.ProductInfoContainer>
         </styles.ProductDetails>
