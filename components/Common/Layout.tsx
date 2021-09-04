@@ -1,8 +1,56 @@
+import { onAuthStateChanged } from 'firebase/auth';
 import Head from 'next/head';
 import React from 'react';
-import Navbar from '../CoreComponents/Navbar/Navbar';
+import { useDispatch, useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { auth, db } from '../../firebase';
+import { actionCreators, State } from '../../state';
+import 'firebase/compat/firestore';
 
+import Navbar from '../CoreComponents/Navbar/Navbar';
+import { collection, onSnapshot } from 'firebase/firestore';
+import { ProductDataWithAmount } from '../../state/reducers/cartReducer';
 const Layout: React.FC = ({ children }) => {
+  const dispatch = useDispatch();
+  const user = useSelector((state: State) => state.user);
+
+  const { setUser, addProductToCart, emptyCart, removeProductfromCart } =
+    bindActionCreators(actionCreators, dispatch);
+  const ref = collection(db, 'users', `${user.user}`, 'orders');
+  React.useEffect(() => {
+    if (user.user) return;
+    onAuthStateChanged(auth, (authuser) => {
+      if (authuser) {
+        console.log('the user is ', authuser.email);
+        setUser(authuser.uid);
+      } else {
+        console.log('User is logged out');
+        setUser(null);
+      }
+    });
+  }, [user.user]);
+
+  React.useEffect(() => {
+    if (!user.user) {
+      return;
+    }
+    emptyCart();
+    const unsub = onSnapshot(ref, (querySnapshot) => {
+      querySnapshot.docChanges().forEach((doc) => {
+        if (doc.type === 'added') {
+          addProductToCart(doc.doc.data() as ProductDataWithAmount);
+        }
+        if (doc.type === 'modified') {
+        }
+        if (doc.type === 'removed') {
+          removeProductfromCart(doc.doc.data().id);
+        }
+      });
+    });
+
+    return unsub;
+  }, [user.user]);
+
   return (
     <main>
       <Head>

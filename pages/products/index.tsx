@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import React from 'react';
 import ProductsFilter from '../../components/CoreComponents/ProductsFilter/ProductsFilter';
 import styled from 'styled-components';
@@ -10,11 +9,7 @@ import { maxPrice, minPrice, sortListDes, searchFilter } from '../../utils';
 import Head from 'next/head';
 import CustomLink from '../../components/Common/CustomLink';
 import { LinkItem } from '../../components/Common/singleProductStyles';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../../firebase';
-import { useDispatch } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { actionCreators } from '../../state';
+
 //Styled Components
 const ProductsPage = styled.section`
   display: flex;
@@ -63,20 +58,6 @@ const ProductsAndFiltersContainer = styled.div`
 //End of Styled Components
 
 const Products = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const dispatch = useDispatch();
-  const { setUser } = bindActionCreators(actionCreators, dispatch);
-  React.useEffect(() => {
-    onAuthStateChanged(auth, (authuser) => {
-      if (authuser) {
-        console.log('the user is ', typeof authuser.email);
-        setUser(authuser.email);
-      } else {
-        console.log('User is logged out');
-        setUser(null);
-      }
-    });
-  }, [setUser]);
-
   const [Products, setProducts] = React.useState(data);
   const [maximumPrice, setMaximumPrice] = React.useState(
     Math.ceil(maxPrice(Products))

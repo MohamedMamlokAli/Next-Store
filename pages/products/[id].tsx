@@ -6,15 +6,15 @@ import Button from '../../components/Common/Button';
 import { ProductData } from '..';
 import React from 'react';
 import Head from 'next/head';
-import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import { actionCreators } from '../../state';
+import { State } from '../../state';
 
-import { bindActionCreators } from 'redux';
+import { collection, addDoc } from 'firebase/firestore';
 
 import CustomLink from '../../components/Common/CustomLink';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../../firebase';
+import { ProductDataWithAmount } from '../../state/reducers/cartReducer';
+import { db } from '../../firebase';
 interface IdQuery extends ParsedUrlQuery {
   id: string;
 }
@@ -22,23 +22,13 @@ const Product = ({
   productData,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [amount, setAmount] = React.useState(1);
+  const user = useSelector((state: State) => state.user);
 
-  const dispatch = useDispatch();
-  const { setUser, addProductToCart } = bindActionCreators(
-    actionCreators,
-    dispatch
-  );
-  React.useEffect(() => {
-    onAuthStateChanged(auth, (authuser) => {
-      if (authuser) {
-        console.log('the user is ', typeof authuser.email);
-        setUser(authuser.email);
-      } else {
-        console.log('User is logged out');
-        setUser(null);
-      }
-    });
-  }, []);
+  const updateFirestore = async (product: ProductDataWithAmount) => {
+    //update firestore
+    const dbSnap = collection(db, 'users', `${user.user}`, 'orders');
+    await addDoc(dbSnap, product);
+  };
   const decrease = () => {
     setAmount(amount !== 1 ? amount - 1 : 1);
   };
@@ -97,14 +87,9 @@ const Product = ({
                 href='/cart'
                 as='/cart'
                 onClick={() => {
-                  addProductToCart({
+                  updateFirestore({
+                    ...productData,
                     amount: amount,
-                    category: productData.category,
-                    description: productData.description,
-                    id: productData.id,
-                    image: productData.image,
-                    price: productData.price,
-                    title: productData.title,
                   });
                 }}
               >

@@ -1,14 +1,17 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { NavItem } from '../../Common/NavItem';
 import { AiFillHome } from 'react-icons/ai';
 import { GiAmpleDress } from 'react-icons/gi';
 import { FaShoppingCart } from 'react-icons/fa';
 import { BsFillPersonFill } from 'react-icons/bs';
+import { useSelector } from 'react-redux';
+import { State } from '../../../state';
 type Props = {
   color?: string;
 };
 const Navbar: React.FC = () => {
+  const user = useSelector((state: State) => state.user);
   return (
     <div>
       {/* desktop nav */}
@@ -36,7 +39,9 @@ const Navbar: React.FC = () => {
               <NavItemIcon>
                 <BsFillPersonFill fill='#795744' />
               </NavItemIcon>
-              <NavItemName color='#324d67'>Login</NavItemName>
+              <NavItemName color='#324d67'>
+                {user.user ? 'SignOut' : 'SignIn'}
+              </NavItemName>
             </NavItem>
           </IconContainer>
         </NavContent>
@@ -66,7 +71,7 @@ const Navbar: React.FC = () => {
           <NavItemIcon>
             <BsFillPersonFill />
           </NavItemIcon>
-          <NavItemName>Login</NavItemName>
+          <NavItemName>{user.user ? 'SignOut' : 'SignIn'}</NavItemName>
         </NavItem>
       </MobileNav>
     </div>
@@ -74,21 +79,7 @@ const Navbar: React.FC = () => {
 };
 
 export default Navbar;
-{
-  /*
-1- mobile navbar
---Navbar will be fixed to the bottom of the screen with icons to navigate to the pages
---The header will just contain the logo of the page in the center
-{
- find suitable icons
-}
 
-2-Desktop navbar
---The Navbar is going to contain The [logo, [Home,Products, About] , [Cart button , Login button] ]  
-
-*/
-}
-// Mobile navbar
 const MobileNav = styled.section`
   width: 100%;
   height: 100px;

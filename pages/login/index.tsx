@@ -2,12 +2,13 @@ import Head from 'next/head';
 import React from 'react';
 import styled from 'styled-components';
 import { testSignIn, testSignOut, testSignUp } from '../../firebase';
-import { useRouter } from 'next/router';
 import { PageHeader, PageLinks } from '../products';
 import CustomLink from '../../components/Common/CustomLink';
 import { LinkItem } from '../../components/Common/singleProductStyles';
 import Button from '../../components/Common/Button';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actionCreators, State } from '../../state';
 //styled components
 const LoginPageWrapper = styled.section`
   padding-bottom: 10rem;
@@ -56,15 +57,25 @@ const FormInput = styled.input`
     outline: none;
   }
 `;
-
+const SignOutModule = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 90%;
+`;
 const Loginpage = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const router = useRouter();
+  const dispatch = useDispatch();
+  const { emptyCart } = bindActionCreators(actionCreators, dispatch);
+  const user = useSelector((state: State) => state.user);
   return (
     <LoginPageWrapper>
       <Head>
-        <title>Login</title>
+        <title>{user.user ? 'Sign Out' : 'Sign In'}</title>
       </Head>
       <PageHeader>
         <div>
@@ -72,65 +83,73 @@ const Loginpage = () => {
             <CustomLink href='/' as='/'>
               <LinkItem>Home</LinkItem>
             </CustomLink>
-            / Login
+            / {user.user ? 'Sign Out' : 'Sign In'}
           </PageLinks>
         </div>
       </PageHeader>
       <LoginFormWrapper>
-        <LoginForm>
-          <InputComboWrapper>
-            <InputLable htmlFor='email'>Email</InputLable>
-            <FormInput
-              type='text'
-              id='email'
-              name='email'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </InputComboWrapper>
-          <InputComboWrapper>
-            <InputLable htmlFor='password'>Password</InputLable>
-            <FormInput
-              type='password'
-              id='password'
-              name='password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </InputComboWrapper>
-          <Button
-            href='/'
-            as='/'
-            onClick={() => {
-              testSignIn(email, password);
-            }}
-          >
-            Sign In
-          </Button>
-          <h3 style={{ textAlign: 'center' }}>
-            Dont have an account? Sign Up instead
-          </h3>
-          <Button
-            href='/'
-            as='/'
-            onClick={() => {
-              testSignUp(email, password);
-            }}
-          >
-            Create an account
-          </Button>
-          <Button
-            href='/'
-            as='/'
-            onClick={() => {
-              testSignOut();
-            }}
-          >
-            Sign Out{' '}
-          </Button>
-        </LoginForm>
+        {user.user && (
+          <SignOutModule>
+            <h1>You are Signed in, would you like to Sign OUT? </h1>
+            <Button
+              href='/'
+              as='/'
+              onClick={() => {
+                emptyCart();
+                testSignOut();
+              }}
+            >
+              Sign Out{' '}
+            </Button>
+          </SignOutModule>
+        )}
+        {!user.user && (
+          <LoginForm>
+            <InputComboWrapper>
+              <InputLable htmlFor='email'>Email</InputLable>
+              <FormInput
+                type='email'
+                id='email'
+                name='email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </InputComboWrapper>
+            <InputComboWrapper>
+              <InputLable htmlFor='password'>Password</InputLable>
+              <FormInput
+                type='password'
+                id='password'
+                name='password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </InputComboWrapper>
+            <Button
+              href='/'
+              as='/'
+              onClick={() => {
+                testSignIn(email, password);
+              }}
+            >
+              Sign In
+            </Button>
+            <h3 style={{ textAlign: 'center' }}>
+              Dont have an account? Sign Up instead
+            </h3>
+            <Button
+              href='/'
+              as='/'
+              onClick={() => {
+                testSignUp(email, password);
+              }}
+            >
+              Create an account
+            </Button>
+          </LoginForm>
+        )}
       </LoginFormWrapper>
     </LoginPageWrapper>
   );

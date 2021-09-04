@@ -28,6 +28,13 @@ export const removeProductfromCart = (number: number) => {
     });
   };
 };
+export const emptyCart = () => {
+  return (dispatch: Dispatch<CartActions>) => {
+    dispatch({
+      type: ActionTypes.EMPTY_CART,
+    });
+  };
+};
 
 export const setUser = (user: string | null) => {
   return (dispatch: Dispatch<UserActions>) => {

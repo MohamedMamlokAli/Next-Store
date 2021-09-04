@@ -74,6 +74,8 @@ const cartReducer = (state = initialCartState, action: CartActions) => {
         TotalPrice: totalPrice,
         ProductsInCart: [...cartWithoutTheremovedProduct],
       };
+    case ActionTypes.EMPTY_CART:
+      return { TotalPrice: 0, ProductsInCart: [] };
     default:
       return state;
   }

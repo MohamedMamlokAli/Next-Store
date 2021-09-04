@@ -14,6 +14,9 @@ type RemoveProductToCartAction = {
   type: ActionTypes.REMOVE_PRODUCT_FROM_CART;
   payload: number;
 };
+type EmptyCart = {
+  type: ActionTypes.EMPTY_CART;
+};
 
 type SetUser = {
   type: ActionTypes.SET_USER;
@@ -24,5 +27,8 @@ type GetUserCart = {
   payload: ProductDataWithAmount[];
 };
 
-export type CartActions = AddProductToCartAction | RemoveProductToCartAction;
+export type CartActions =
+  | AddProductToCartAction
+  | RemoveProductToCartAction
+  | EmptyCart;
 export type UserActions = SetUser | GetUserCart;

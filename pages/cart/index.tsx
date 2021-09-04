@@ -1,37 +1,26 @@
 import { NextPage } from 'next';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators, State } from '../../state';
+import { useSelector } from 'react-redux';
+import { State } from '../../state';
 import Head from 'next/head';
 import { PageHeader, PageLinks } from '../products';
 import CustomLink from '../../components/Common/CustomLink';
 import { LinkItem } from '../../components/Common/singleProductStyles';
 import Button from '../../components/Common/Button';
-import { bindActionCreators } from 'redux';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../../firebase';
+import {
+  deleteDoc,
+  where,
+  collection,
+  query,
+  getDocs,
+} from 'firebase/firestore';
+import { db } from '../../firebase';
 import * as styles from '../../components/Common/cartstyles';
-
 //Styled Components
 const CartPage: NextPage = () => {
   const cart = useSelector((state: State) => state.cart);
   const user = useSelector((state: State) => state.user);
-  const dispatch = useDispatch();
-  const { setUser, removeProductfromCart } = bindActionCreators(
-    actionCreators,
-    dispatch
-  );
-  React.useEffect(() => {
-    onAuthStateChanged(auth, (authuser) => {
-      if (authuser) {
-        console.log('the user is ', typeof authuser.email);
-        setUser(authuser.email);
-      } else {
-        console.log('User is logged out');
-        setUser(null);
-      }
-    });
-  }, []);
+
   return (
     <styles.CartWrapper>
       <Head>
@@ -82,7 +71,18 @@ const CartPage: NextPage = () => {
                   ${Math.floor(product.price * product.amount)}
                 </styles.SubTotal>
                 <styles.RemoveProduct
-                  onClick={() => removeProductfromCart(product.id)}
+                  onClick={async () => {
+                    const q = query(
+                      collection(db, 'users', `${user.user}`, 'orders'),
+                      where('id', '==', product.id)
+                    );
+
+                    const querySnapshot = await getDocs(q);
+                    querySnapshot.forEach((doc) => {
+                      // doc.data() is never undefined for query doc snapshots
+                      deleteDoc(doc.ref);
+                    });
+                  }}
                 >
                   Remove
                 </styles.RemoveProduct>
